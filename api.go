@@ -16,6 +16,8 @@ const (
 	authHeader   = "Authorization"
 )
 
+var HTTPAPIClient HTTPClient
+
 func New(username, password string) API {
 	return API{
 		username: username,
@@ -76,8 +78,12 @@ func (a *API) call(method, path, data string) ([]byte, error) {
 		req.Header[authHeader] = []string{a.token.String()}
 	}
 
+	if HTTPAPIClient == nil {
+		HTTPAPIClient = http.DefaultClient
+	}
+
 	// do HTTP request
-	resp, err := http.DefaultClient.Do(req)
+	resp, err := HTTPAPIClient.Do(req)
 	if err != nil {
 		return nil, err
 	}

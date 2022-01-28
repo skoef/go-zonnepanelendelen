@@ -1,0 +1,11 @@
+{
+    "projects_invested_in": [
+        {
+            "id": 123,
+            "name": "Test project",
+            "latitude": 52.34899,
+            "longitude": 4.92096,
+            "is_hidden": true
+        }
+    ]
+}
