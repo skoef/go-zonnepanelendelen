@@ -16,8 +16,10 @@ const (
 	authHeader   = "Authorization"
 )
 
+// HTTPAPIClient is the HTTP client used for interfacing with the API
 var HTTPAPIClient HTTPClient
 
+// New returns a new API struct for given username and password
 func New(username, password string) API {
 	return API{
 		username: username,

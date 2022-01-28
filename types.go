@@ -1,12 +1,7 @@
 package zonnepanelendelen
 
 import (
-	"errors"
 	"net/http"
-)
-
-var (
-	ErrNotAuthenticated = errors.New("failed to authenticate")
 )
 
 // API is a container for holding authentication state for API interfacing
@@ -23,6 +18,7 @@ type AuthToken struct {
 	Token string `json:"token"`
 }
 
+// Project is a single zonnepanelendelen project
 type Project struct {
 	Name      string  `json:"name"`
 	ID        int     `json:"id"`
@@ -31,8 +27,9 @@ type Project struct {
 	IsHidden  bool    `json:"is_hidden"`
 }
 
-// allow to override the HTTP client for additional control over API calls or
-// testing purposes
+// HTTPClient is the interface that should be implemented by API HTTP clients
+// while this usually is just the default HTTP client, but it allows to override
+// the HTTP client for additional control over API calls or testing purposes
 type HTTPClient interface {
 	Do(req *http.Request) (*http.Response, error)
 }
