@@ -150,3 +150,24 @@ func (a API) GetProjects() ([]Project, error) {
 	}
 	return v.Projects, nil
 }
+
+func (a API) GetProject(projectID int) (Project, error) {
+	data, err := a.call("GET", fmt.Sprintf("project/%d", projectID), "")
+	if err != nil {
+		return Project{}, err
+	}
+
+	var v struct {
+		Project Project `json:"project"`
+		Metrics Metrics `json:"metrics"`
+	}
+
+	err = json.Unmarshal(data, &v)
+	if err != nil {
+		return Project{}, err
+	}
+
+	v.Project.Metrics = v.Metrics
+
+	return v.Project, nil
+}
